@@ -1,16 +1,16 @@
-# Flatten output action
+# Get JSON paths action
 
-> A GitHub Action to access deep values of a JSON output
+> A GitHub Action to access deep values of JSON strings
 
-[![Build Status](https://github.com/gr2m/flatten-output-action/workflows/Test/badge.svg)](https://github.com/gr2m/flatten-output-action/actions)
-[![Greenkeeper](https://badges.greenkeeper.io/gr2m/flatten-output-action.svg)](https://greenkeeper.io/)
+[![Build Status](https://github.com/gr2m/get-json-paths-action/workflows/Test/badge.svg)](https://github.com/gr2m/get-json-paths-action/actions)
+[![Greenkeeper](https://badges.greenkeeper.io/gr2m/get-json-paths-action.svg)](https://greenkeeper.io/)
 
 ## Usage
 
 Minimal example
 
 ```yml
-Name: Flatten output example
+Name: Minimal example
 on: [push]
 
 jobs:
@@ -20,7 +20,7 @@ jobs:
       - id: action_with_json_output
         run: 'echo ::set-output name=data::{ "foo": { "bar":"baz" } }'
       - id: data
-        uses: gr2m/flatten-output-action@v1.x
+        uses: gr2m/get-json-paths-action@v1.x
         with:
           json: ${{ steps.action_with_json_output.outputs.data }}
           bar: "foo.bar"
@@ -30,7 +30,7 @@ jobs:
 Example with [`octokit/request-action`](https://github.com/octokit/request-action/)
 
 ```yml
-Name: Request output example
+Name: Request example
 on:
   push:
     branches:
@@ -40,20 +40,20 @@ jobs:
   request_example:
     runs-on: ubuntu-latest
     steps:
-      - id: get_latest_release_request
+      - id: request
         uses: octokit/request-action@v1.x
         with:
           route: GET /repos/:owner/:repo/releases/latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - id: get_latest_release_result
-        uses: gr2m/flatten-output-action@v1.x
+      - id: result
+        uses: gr2m/get-json-paths-action@v1.x
         with:
-          json: ${{ steps.get_latest_release_request.outputs.data }}
+          json: ${{ steps.request.outputs.data }}
           name: "data.name"
           tag_name: "data.tag_name"
           created_by: "data.author.login"
-      - run: "echo latest release: ${{ steps.get_latest_release_result.outputs.name }} (${{ steps.get_latest_release_result.outputs.name }}) by ${{ ${{ steps.get_latest_release_result.outputs.login }}"
+      - run: "echo latest release: ${{ steps.result.outputs.name }} (${{ steps.result.outputs.name }}) by ${{ ${{ steps.result.outputs.login }}"
 ```
 
 ## Debugging
@@ -62,7 +62,7 @@ To see additional debug logs, create a secret with the name: `ACTIONS_STEP_DEBUG
 
 ## How it works
 
-`flatten-output-action` is using [`lodash.get`](https://lodash.com/docs/4.17.15#get) to access deep properties at the provided path. `json` is the only required `input`. All other inputs are turned into equally named outputs with the value at the given paths.
+`get-json-paths-action` is using [`lodash.get`](https://lodash.com/docs/4.17.15#get) to access deep properties at the provided path. `json` is the only required `input`. All other inputs are turned into equally named outputs with the value at the given paths.
 
 ## License
 
