@@ -1,5 +1,5 @@
 {
-  "name": "flatten-output-action",
+  "name": "get-json-paths-action",
   "private": true,
   "version": "0.0.0-development",
   "description": "A GitHub Action to access deep values of a JSON output",
@@ -7,7 +7,7 @@
   "scripts": {
     "build": "ncc build index.js -o dist"
   },
-  "repository": "https://github.com/gr2m/flatten-output-action",
+  "repository": "https://github.com/gr2m/get-json-paths-action",
   "keywords": [
     "github-action"
   ],
