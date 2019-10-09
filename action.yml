@@ -1,0 +1,12 @@
+name: Get JSON paths action
+description: "A GitHub Action to access deep values of JSON strings"
+branding:
+  icon: "box"
+  color: gray-dark
+inputs:
+  json:
+    description: "JSON string"
+    required: true
+runs:
+  using: "node12"
+  main: "dist/index.js"
