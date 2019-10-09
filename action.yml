@@ -1,4 +1,4 @@
-name: Get JSON paths action
+name: Get JSON paths
 description: "A GitHub Action to access deep values of JSON strings"
 branding:
   icon: "box"
