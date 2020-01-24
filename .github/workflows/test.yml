@@ -47,7 +47,7 @@ jobs:
         uses: ./
         with:
           json: ${{ steps.request.outputs.data }}
-          name: "data.name"
-          tag_name: "data.tag_name"
-          created_by: "data.author.login"
+          name: "name"
+          tag_name: "tag_name"
+          created_by: "author.login"
       - run: 'node -e "assert.equal(''gr2m'', ''${{ steps.result.outputs.created_by }}'')"'
