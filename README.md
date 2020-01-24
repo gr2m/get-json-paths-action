@@ -41,9 +41,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - id: request
-        uses: octokit/request-action@v1.x
+        uses: octokit/request-action@v2.x
         with:
           route: GET /repos/:owner/:repo/releases/latest
+          owner: gr2m
+          repo: get-json-paths-action
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - id: result
