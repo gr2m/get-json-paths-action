@@ -52,10 +52,10 @@ jobs:
         uses: gr2m/get-json-paths-action@v1.x
         with:
           json: ${{ steps.request.outputs.data }}
-          name: "data.name"
-          tag_name: "data.tag_name"
-          created_by: "data.author.login"
-      - run: "echo latest release: ${{ steps.result.outputs.name }} (${{ steps.result.outputs.name }}) by ${{ ${{ steps.result.outputs.login }}"
+          name: "name"
+          tag_name: "tag_name"
+          created_by: "author.login"
+      - run: "echo latest release: ${{ steps.result.outputs.name }} (${{ steps.result.outputs.tag_name }}) by ${{ ${{ steps.result.outputs.login }}"
 ```
 
 ## Debugging
