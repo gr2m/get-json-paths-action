@@ -19,9 +19,35 @@ jobs:
       - run: "npm run build"
       - id: action_with_json_output
         run: 'node -p "require(''@actions/core'').setOutput(''data'', JSON.stringify({foo: {bar: ''baz''}}))"'
-      - id: data
+      - id: result
         uses: ./
         with:
           json: ${{ steps.action_with_json_output.outputs.data }}
           bar: "foo.bar"
-      - run: 'node -e "assert.equal(''baz'', ''${{ steps.data.outputs.bar }}'')"'
+      - run: 'node -e "assert.equal(''baz'', ''${{ steps.result.outputs.bar }}'')"'
+  readmeRequestActionExample:
+    name: "[TEST] README octokit/request-action@v2.x example"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@v1
+        with:
+          node-version: "12.x"
+      - run: "npm ci"
+      - run: "npm run build"
+      - id: request
+        uses: octokit/request-action@v2.x
+        with:
+          route: GET /repos/:owner/:repo/releases/latest
+          owner: gr2m
+          repo: get-json-paths-action
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - id: result
+        uses: ./
+        with:
+          json: ${{ steps.request.outputs.data }}
+          name: "data.name"
+          tag_name: "data.tag_name"
+          created_by: "data.author.login"
+      - run: 'node -e "assert.equal(''gr2m'', ''${{ steps.result.outputs.created_by }}'')"'
