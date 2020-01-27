@@ -18,7 +18,7 @@
     "lodash.get": "^4.4.2"
   },
   "devDependencies": {
-    "@semantic-release/git": "^7.0.16",
+    "@semantic-release/git": "^9.0.0",
     "@zeit/ncc": "^0.20.5",
     "semantic-release": "^17.0.0"
   },
