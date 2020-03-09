@@ -12,8 +12,9 @@ try {
 
   for (const [name, path] of Object.entries(paths)) {
     const value = get(jsonParsed, path);
-    core.debug(`setting output ${name} to ${value} using "${path}"`);
-    core.setOutput(name, value);
+    const strValue = JSON.stringify(value);
+    core.debug(`setting output ${name} to "${strValue}" (${typeof value}) using "${path}"`);
+    core.setOutput(name, strValue);
   }
 } catch (error) {
   core.setFailed(error);
