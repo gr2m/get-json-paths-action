@@ -18,21 +18,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - id: action_with_json_output
-        run: 'echo ::set-output name=data::{ \"foo\": { \"bar_number\":0, \"bar_str\":\"baz\" } }'
-      - uses: actions/checkout@v2
+        run: 'echo ::set-output name=data::{ "foo": { "bar":"baz" } }'
       - id: data
         uses: gr2m/get-json-paths-action@v1.x
         with:
           json: ${{ steps.action_with_json_output.outputs.data }}
-          foo: "foo"
-          bar_number: "foo.bar_number"
-          bar_str: "foo.bar_str"
-          bar_undefined: "foo.bar[0]"
-      - run: |
-          echo "foo is '${{ steps.data.outputs.foo }}'"
-          echo "bar_number is '${{ steps.data.outputs.bar_number }}'"
-          echo "bar_str is '${{ steps.data.outputs.bar_str }}'"
-          echo "bar_undefined is '${{ steps.data.outputs.bar_undefined }}'"
+          bar: "foo.bar"
+      - run: "echo bar is ${{ steps.data.outputs.bar }}"
 ```
 
 Example with [`octokit/request-action`](https://github.com/octokit/request-action/)
