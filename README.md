@@ -1,3 +1,7 @@
+# 💁‍♂️ This action is now obsolete
+
+Use the built-in [`fromJSON(value)`](https://help.github.com/en/actions/reference/context-and-expression-syntax-for-github-actions#fromjson) function instead
+
 # Get JSON paths action
 
 > A GitHub Action to access deep values of JSON strings
